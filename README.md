@@ -1,13 +1,10 @@
-## Dadonuts Full Stack App
+# Dadonuts Full Stack App
 
-## Development:
-Install all dependencies then start the application in development mode:
-# npm run dev
-
-## Production:
-Build the application:
-# npm run build
-And start the application in production mode:
-# npm start
-
-
+Dadonuts is a full stack e-commerce application with shopping cart to order pastries. It is built with **React** and **Express**. The app also features:
+- Styled-Components
+- Redux
+- Smooth scroll (react-scroll)
+- JWT for authentication
+- Sequelize as ORM
+- SQLite as database
+For more information about the client side, click [here](https://github.com/harry79ph/react-js-dadonuts/blob/main/README.md)
