@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "concurrently \"nodemon index\" \"npm start --prefix client\"",
     "postinstall": "npm install --prefix client && npm run build --prefix client",
+    "build": "npm install",
     "start": "node index"
   },
   "author": "",
