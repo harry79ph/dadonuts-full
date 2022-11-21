@@ -18,7 +18,7 @@ const UserLogin = ({ user, addUser, removeUser }) => {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    e.preventDefault({ addUser });
+    e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     setCredentials({ ...credentials, email, password });

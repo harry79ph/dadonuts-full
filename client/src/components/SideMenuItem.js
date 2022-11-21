@@ -12,8 +12,8 @@ const SideMenuItem = ({ item, removeFromCart }) => {
                 <span className="times">X</span>
                 <span>{item.qty}</span>
             </SideItemContent>
-            <ItemRemove>
-                <RemoveIcon display="inline" onClick={() => removeFromCart(item)} />
+            <ItemRemove side>
+                <RemoveIcon light="true" onClick={() => removeFromCart(item)} />
             </ItemRemove>
         </SideItemWrapper>
     );

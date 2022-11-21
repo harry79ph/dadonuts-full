@@ -19,12 +19,11 @@ const UserAuth = ({ user, removeUser }) => {
     setIsLoading(true);
     api
       .get("/logout")
-      .then(() => {
-        removeUser();
-      })
-      .catch(function (err) {
+      .then(removeUser)
+      .catch((err) => {
         console.log(err);
         setIsLoading(false);
+        if (err.message === "Network Error") alert("Please check your connection");
       });
   }
   

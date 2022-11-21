@@ -30,7 +30,7 @@ const CartItem = ({ item, changeItemQty, removeFromCart }) => {
                     </QuantityWrap>
                     <ItemTotal><span>Total</span><h3>£{(Number(item.price) * Number(item.qty)).toFixed(2)}</h3></ItemTotal>
                     <ItemRemove>
-                        <RemoveIcon display="inline" onClick={() => {
+                        <RemoveIcon onClick={() => {
                             removeFromCart(item);
                         }} />
                     </ItemRemove>

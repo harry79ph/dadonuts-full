@@ -6,6 +6,9 @@ const SECRET = process.env.TOKEN_SECRET;
 
 const expiresIn = 60 * 60 * 24;
 const createToken = (id) => jwt.sign({ id }, SECRET, { expiresIn });
+const createUserData = ({ dataValues: { firstname, email, street1, street2, city, postcode, phone } }) => {
+  return { user: firstname, email, street1, street2, city, postcode, phone };
+}
 
 const checkUser = (req, res) => {
   const token = req.cookies["dadonuts-token"];
@@ -17,7 +20,8 @@ const checkUser = (req, res) => {
       try {
         const user = await User.findOne({ where: { uid: decodedToken.id} });
         if (user) {
-          res.json({ name: user.dataValues.firstname, email: user.dataValues.email });
+          const userData = createUserData(user);
+          res.json(userData);
         } else {
           res.json({ msg: "No user found" });
         }
@@ -47,34 +51,41 @@ const signup = async (req, res) => {
 }
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email: reqEmail, password } = req.body;
 
   const users = await User.findAll();
-  const user = users.find((user) => user.email === email);
-  if (!user) return res.status(422).json({ errors: [{ msg: "Invalid Credentials" }] });
+  const user = users.find((user) => user.email === reqEmail);
+  if (!user) return res.status(422).json({ errors: [{ msg: "Incorrect username or password" }] });
 
   const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) return res.status(422).json({ errors: [{ msg: "Invalid Credentials" }] });
+  if (!isMatch) return res.status(422).json({ errors: [{ msg: "Incorrect username or password" }] });
   
   const token = createToken(user.dataValues.uid);
   res.cookie("dadonuts-token", token, {
     maxAge: expiresIn * 1000,
     httpOnly: true,
-    secure: true,
-    sameSite: "None"
+    secure: true
   });
 
-  res.json({ name: user.dataValues.firstname, email: user.dataValues.email });
+  const userData = createUserData(user);
+  res.json(userData);
 }
 
 const updateUser = async (req, res) => {
   const { email, ...details } = req.body;
   const user = await User.findOne({ where: { email } });
+  
+  const prev = JSON.stringify(user.dataValues);
   if (!user) return res.status(422).json({ errors: [{ msg: "User not found" }] });
   user.set(details);
   await user.save();
-  
-  res.json({ msg: "Contact details saved successfully!" });
+  const curr = JSON.stringify(user.dataValues);
+
+  if (prev === curr) {
+    res.json({ msg: "You entered same details!" });
+  } else {
+    res.json({ msg: "Contact details saved successfully!" });
+  }
 }
 
 const logout = (req, res) => {

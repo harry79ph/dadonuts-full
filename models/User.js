@@ -2,7 +2,7 @@ const { Model, DataTypes, Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize("dadonuts-db", "user", "pass", {
     dialect: "sqlite",
-    host: "./users.sqlite"
+    host: "./db/users.sqlite"
 });
 
 sequelize.sync({force: false}).then(() => console.log("db is ready"));

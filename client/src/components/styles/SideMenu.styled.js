@@ -3,6 +3,7 @@ import { Link as RouteLink } from "react-router-dom";
 import { Link } from 'react-scroll';
 import { CartItemWrap, QuantityWrap, ItemImg } from "./CartItem.styled";
 import { fadeIn } from './Cart.styled';
+import { FiChevronDown } from "react-icons/fi";
 
 const sideMenuButtonStyle = css`
   border: none;
@@ -104,13 +105,26 @@ export const LogoutButton = styled.button`
   font-size: 0.9rem;
   margin: 0.15rem;
   padding: 0.3rem 0.7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   ${sideMenuButtonStyle}
+`;
+
+export const ChevDownImg = styled(FiChevronDown)`
+  font-size: inherit;
+  margin-left: 0.3rem;
 `;
 
 export const FormWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0.5rem 3vw;
+  & > form {
+    animation-name: ${fadeIn};
+    animation-duration: 0.7s;
+    animation-timing-function: ease-out;
+  }
 `;
 
 export const UserForm = styled.form`

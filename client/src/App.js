@@ -35,12 +35,10 @@ const App = ({ cart, calcTotals, addUser }) => {
     }, 4000);
     api
       .get("/check")
-      .then((data) => {
-        addUser(data.data);
+      .then(({data}) => {
+        if (!data.msg) addUser(data);
       })
-      .catch(function (err) {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
   }, [addUser]);
 
   useEffect(() => {
@@ -62,6 +60,7 @@ const App = ({ cart, calcTotals, addUser }) => {
 
 const mapStateToProps = (state) => {
   return {
+    user: state.auth,
     cart: state.shop.cart,
   };
 };

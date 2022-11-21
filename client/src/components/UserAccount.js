@@ -3,36 +3,42 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import api from "../api/axiosConfig";
 import {
+  ChevDownImg,
   FormButton,
   FormInfoText,
   FormWrap,
+  LogoutButton,
   UserForm,
   UserInput,
 } from "./styles/SideMenu.styled";
+import { addUser } from "../redux/actions/auth-actions";
 
-const UserAccount = ({ email }) => {
+const UserAccount = ({ info: { user, email, phone, ...address }, addUser }) => {
+
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [isDisplayed, setIDisplayed] = useState(true);
   const formRef = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const formValues = Object.fromEntries(formData);
-    const { street1, street2, city, postcode, phone } = formValues;
-
-    setUser({ email, street1, street2, city, postcode, phone });
+    setUserData({ email, ...formValues });
   };
 
   useEffect(() => {
-    if (!user) return;
+    if (!userData) return;
+    setMessage("");
     setIsLoading(true);
+    const controller = new AbortController();
     api
-      .put("/update", user)
-      .then((data) => {
-        setMessage(data.data.msg);
-        setUser(null);
+      .put("/update", userData, {signal: controller.signal})
+      .then(({data}) => {
+        setMessage(data.msg);
+        addUser(userData);
+        setUserData(null);
         formRef.current?.reset();
       })
       .catch((err) => {
@@ -44,7 +50,14 @@ const UserAccount = ({ email }) => {
         setMessage(text);
       });
     setIsLoading(false);
-  }, [user]);
+    return () => controller.abort()
+  }, [addUser, userData]);
+
+  useEffect(() => {
+    if (address.city) setIDisplayed(false);
+  }, [address.city])
+
+  const addressArr = Object.values(address);
 
   return (
     <FormWrap>
@@ -55,8 +68,12 @@ const UserAccount = ({ email }) => {
         </FormInfoText>
       ) : (
         <>
-          <p>Please enter your details</p>
-          <UserForm ref={formRef} onSubmit={handleSubmit}>
+          {address.city && <><h4>Adress:</h4>
+          {addressArr.map(v => <p key={v}>{v}</p>)}
+          <h4>Phone:</h4>
+          <p>{phone}</p></>}
+          {address.city ? <LogoutButton onClick={() => setIDisplayed(prev => !prev)}>Update your details <ChevDownImg /></LogoutButton> : <h3>Please enter your details</h3>}
+          {isDisplayed && <UserForm ref={formRef} onSubmit={handleSubmit}>
             <UserInput
               type="text"
               name="street1"
@@ -96,7 +113,7 @@ const UserAccount = ({ email }) => {
               disabled={isLoading}
               value={isLoading ? "Please wait..." : "Save"}
             />
-          </UserForm>
+          </UserForm>}
           <p style={{ textAlign: "center" }}>
             <Link to="/home">Go back?</Link>
           </p>
@@ -108,8 +125,15 @@ const UserAccount = ({ email }) => {
 
 const mapStateToProps = state => {
   return {
+    info: state.auth,
     email: state.auth.email
   }
 }
 
-export default connect(mapStateToProps)(UserAccount);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addUser: (user) => dispatch(addUser(user))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserAccount);

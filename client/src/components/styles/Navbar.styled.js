@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-scroll";
 import { CgMenuCake } from "react-icons/cg";
 import { CgShoppingCart } from "react-icons/cg";
-import { RiAccountCircleLine } from "react-icons/ri";
+import { BiUser } from "react-icons/bi";
 
 export const NavContainer = styled.nav`
   background: ${({theme}) => theme.colors.navbar};
@@ -84,10 +84,14 @@ export const AccountWrapper = styled.div`
   }
 `;
 
-export const AccountImg = styled(RiAccountCircleLine)`
+export const AccountImg = styled(BiUser)`
   display: inline;
   position: relative;
-  font-size: 2.2rem;
+  font-size: 2rem;
+  transition: color .3s ease-out;
+  &:hover {
+    color: ${props => props.theme.colors.shadow};
+  }
   @media ${({theme}) => theme.mediaQueries['md']} {
     font-size: 3rem;
   }
@@ -141,6 +145,11 @@ export const ShoppingCart = styled(CgShoppingCart)`
   font-size: ${(props) => props.fontSize || "2.2rem"};
   margin-right: 1.6em;
   height: 100%;
+  transition: color .3s ease-out;
+  &:hover {
+    color: ${props => props.theme.colors.golden};
+    color: ${props => props.cursor ? "inherit" : props.theme.colors.shadow};
+  }
   cursor: ${(props) => props.cursor || "pointer"};
   @media ${({theme}) => theme.mediaQueries['md']} {
     display: ${(props) => props.display || "none"};

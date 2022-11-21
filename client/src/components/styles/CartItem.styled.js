@@ -91,7 +91,8 @@ export const ItemTotal = styled.div`
 `;
 
 export const ItemRemove = styled.div`
-  padding-left: 0;
+  height: 2.2rem;
+  height: ${props => props.side ? "2rem" : "2.2rem"};
 `;
 
 export const RemoveIcon = styled(CgTrash)`
@@ -99,6 +100,10 @@ export const RemoveIcon = styled(CgTrash)`
   font-size: 2.2rem;
   color: inherit;
   cursor: pointer;
+  transition: color .3s ease-out;
+  &:hover {
+    color: ${props => props.light ? props.theme.colors.light : props.theme.colors.secondary};
+  }
   @media ${({theme}) => theme.mediaQueries['md']} {
     display: ${({display}) => display || "none"};
     font-size: 2rem;

@@ -7,9 +7,9 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case "ADD_USER":
-            return {  ...state, user: action.payload.name, email: action.payload.email }
+            return {  ...state, ...action.payload };
         case "REMOVE_USER":
-            return {  ...state, user: "", email: "" }
+            return initialState;
         default:
             return state;
     }
