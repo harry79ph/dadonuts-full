@@ -7,7 +7,7 @@ import CopyRight from "./components/CopyRight";
 
 const HomeContent = lazy(() => import("./components/HomeContent"));
 
-function Home({ animation }) {
+function Home() {
 
   const [isOpen, setIsOpen] = useState(false);
   
@@ -19,7 +19,7 @@ function Home({ animation }) {
     <>
       <Navbar handleToggle={handleToggle} />
       <SideMenu isOpen={isOpen} handleToggle={handleToggle} />
-      <Hero animation={animation} />
+      <Hero />
       <Suspense fallback={<Loader>Please wait. Loading...</Loader>}>
         <HomeContent />
       </Suspense>

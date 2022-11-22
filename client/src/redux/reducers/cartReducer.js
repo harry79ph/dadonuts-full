@@ -1,4 +1,4 @@
-import { sections } from "../data/itemLists";
+import { sections } from "../../data/itemLists";
 
 const initialState = {
     sections,

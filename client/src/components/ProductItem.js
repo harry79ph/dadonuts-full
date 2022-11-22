@@ -1,13 +1,19 @@
 import { ProductButton, ProductCard, ProductImg, ProductInfo, ProductPrice, ProductTitle } from "./styles/Products.styled";
 import { connect } from 'react-redux';
 import { addToCart, removeFromCart } from '../redux/actions/cart-actions'
+import { useInView } from 'react-intersection-observer';
 
 const ProductItem = ({ cart, product, addToCart, removeFromCart }) => {
-    
+
+    const { ref, inView } = useInView({
+        threshold: 0.5,
+        triggerOnce: true
+    });
+
     return (
-        <ProductCard>
-            <ProductImg src={product.img} alt={product.name} />
-            <ProductInfo className="product-info">
+        <ProductCard ref={ref}>
+            <ProductImg className={inView ? "active" : ""} src={product.img} alt={product.name} />
+            <ProductInfo className={inView ? "product-info active" : "product-info"}>
                 <ProductTitle>{product.name}</ProductTitle>
                 <ProductPrice>£{product.price}</ProductPrice>
                 {cart.some((item) => item.id === product.id) ? (

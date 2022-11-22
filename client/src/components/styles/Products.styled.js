@@ -13,6 +13,11 @@ const loader = keyframes`
   100% { color: ${props => props.theme.colors.golden}; }
 `;
 
+const fadeUp = keyframes`
+  0% { opacity: 0; transform: translateY(3rem); }
+  100% { opacity: 1; transform: translateY(0); }
+`;
+
 export const Loader = styled.p`
   padding: 2vw;
   font-size: 1.4rem;
@@ -116,6 +121,13 @@ export const ProductImg = styled.img`
   display: block;
   max-width: 100%;
   margin: 0 auto;
+  opacity: 0;
+  &.active {
+    animation-name: ${fadeUp};
+    animation-duration: .7s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+  }
 `;
 
 export const ProductInfo = styled.div`
@@ -125,15 +137,31 @@ export const ProductInfo = styled.div`
   align-items: center;
   padding: 1rem 0 2rem 0;
   text-align: center;
+  &.active > h2{
+    animation-name: ${fadeUp};
+    animation-duration: .7s;
+    animation-delay: .2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+  }
+  &.active > p {
+    animation-name: ${fadeUp};
+    animation-duration: .7s;
+    animation-delay: .4s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+  }
 `;
 
 export const ProductTitle = styled.h2`
   font-size: 1.2rem;
+  opacity: 0;
 `;
 
 export const ProductPrice = styled.p`
   margin-bottom: 1rem;
   font-size: 1.4rem;
+  opacity: 0;
 `;
 
 export const ProductButton = styled.button`
