@@ -67,6 +67,14 @@ export const HeroItems = styled.div`
 export const H1Wrapper = styled.div`
   margin-bottom: 1rem;
   box-shadow: 3px 5px 1px 1px ${({theme}) => theme.colors.shadow};
+  transform: translateY(0);
+  transition: transform ${(props) => props.speed === "fast" ? ".4s" : ".7s"} ease;
+  &.up {
+    transform: translateY(${(props) => props.speed === "slow" ? "0.5rem" : "1.5rem"});
+  }
+  &.down {
+    transform: translateY(${(props) => props.speed === "slow" ? "-0.5rem" : "-1.5rem"});
+  }
 `;
 
 const h1Animation = keyframes`
