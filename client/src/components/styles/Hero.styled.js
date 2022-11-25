@@ -67,14 +67,6 @@ export const HeroItems = styled.div`
 export const H1Wrapper = styled.div`
   margin-bottom: 1rem;
   box-shadow: 3px 5px 1px 1px ${({theme}) => theme.colors.shadow};
-  transform: translateY(0);
-  transition: transform ${(props) => props.speed === "fast" ? ".4s" : ".7s"} ease;
-  &.up {
-    transform: translateY(${(props) => props.speed === "slow" ? "0.5rem" : "1.5rem"});
-  }
-  &.down {
-    transform: translateY(${(props) => props.speed === "slow" ? "-0.5rem" : "-1.5rem"});
-  }
 `;
 
 const h1Animation = keyframes`
@@ -85,6 +77,17 @@ const h1Animation = keyframes`
 const pAnimation = keyframes`
   0% { opacity: 0; transform: translateX(-20vh) skewX(30deg); }
   100% { opacity: 1; transform: translateX(0px) skewX(0deg); }
+`;
+
+export const H1Holder = styled.div`
+  transform: translateY(0);
+  transition: transform ${(props) => props.speed === "fast" ? ".4s" : "1s"} ease;
+  &.up {
+    transform: translateY(${(props) => props.speed === "slow" ? "0.5rem" : "1.2rem"});
+  }
+  &.down {
+    transform: translateY(${(props) => props.speed === "slow" ? "-0.5rem" : "-1.2rem"});
+  }
 `;
 
 export const HeroH1 = styled.h1`
