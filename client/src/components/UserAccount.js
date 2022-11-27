@@ -13,7 +13,7 @@ import {
 } from "./styles/SideMenu.styled";
 import { addUser } from "../redux/actions/auth-actions";
 
-const UserAccount = ({ info: { user, email, phone, ...address }, addUser }) => {
+const UserAccount = ({ info: { user, id, phone, ...address }, addUser }) => {
 
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +25,7 @@ const UserAccount = ({ info: { user, email, phone, ...address }, addUser }) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const formValues = Object.fromEntries(formData);
-    setUserData({ email, ...formValues });
+    setUserData({ id, ...formValues });
   };
 
   useEffect(() => {
@@ -39,7 +39,6 @@ const UserAccount = ({ info: { user, email, phone, ...address }, addUser }) => {
         setMessage(data.msg);
         addUser(userData);
         setUserData(null);
-        formRef.current?.reset();
       })
       .catch((err) => {
         console.log(err);
@@ -50,7 +49,7 @@ const UserAccount = ({ info: { user, email, phone, ...address }, addUser }) => {
         setMessage(text);
       });
     setIsLoading(false);
-    return () => controller.abort()
+    return () => controller.abort();
   }, [addUser, userData]);
 
   useEffect(() => {
@@ -125,8 +124,7 @@ const UserAccount = ({ info: { user, email, phone, ...address }, addUser }) => {
 
 const mapStateToProps = state => {
   return {
-    info: state.auth,
-    email: state.auth.email
+    info: state.auth
   }
 }
 

@@ -6,8 +6,8 @@ const SECRET = process.env.TOKEN_SECRET;
 
 const expiresIn = 60 * 60 * 24;
 const createToken = (id) => jwt.sign({ id }, SECRET, { expiresIn });
-const createUserData = ({ dataValues: { firstname, email, street1, street2, city, postcode, phone } }) => {
-  return { user: firstname, email, street1, street2, city, postcode, phone };
+const createUserData = ({ dataValues: { firstname, uid, street1, street2, city, postcode, phone } }) => {
+  return { user: firstname, id: uid, street1, street2, city, postcode, phone };
 }
 
 const checkUser = (req, res) => {
@@ -52,13 +52,14 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
   const { email: reqEmail, password } = req.body;
-
+  const error = { errors: [{ msg: "Incorrect username or password" }] };
+  
   const users = await User.findAll();
   const user = users.find((user) => user.email === reqEmail);
-  if (!user) return res.status(422).json({ errors: [{ msg: "Incorrect username or password" }] });
+  if (!user) return res.status(422).json(error);
 
   const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) return res.status(422).json({ errors: [{ msg: "Incorrect username or password" }] });
+  if (!isMatch) return res.status(422).json(error);
   
   const token = createToken(user.dataValues.uid);
   res.cookie("dadonuts-token", token, {
@@ -72,8 +73,8 @@ const login = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-  const { email, ...details } = req.body;
-  const user = await User.findOne({ where: { email } });
+  const { id, ...details } = req.body;
+  const user = await User.findOne({ where: { uid: id } });
   
   const prev = JSON.stringify(user.dataValues);
   if (!user) return res.status(422).json({ errors: [{ msg: "User not found" }] });

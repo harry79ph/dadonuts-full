@@ -2,7 +2,7 @@ import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { H1Holder, H1Wrapper, HeroBtn, HeroContainer, HeroContent, HeroH1, HeroItems, HeroP } from "./styles/Hero.styled";
 
-const Hero = () => {
+const Hero = ({ animation }) => {
     
     const { ref: contentRef, inView: contentInView } = useInView({ triggerOnce: true });
     const { ref: h1Ref, inView: h1InView } = useInView();
@@ -42,7 +42,7 @@ const Hero = () => {
                             <HeroH1 className={contentInView ? "active" : ""}>Tastiest hand made doughnuts</HeroH1>
                         </H1Holder>
                     </H1Wrapper>
-                    <HeroP className={contentInView ? "active" : ""}>Irresistibly delicious!!</HeroP>
+                    <HeroP className={animation}>Irresistibly delicious!!</HeroP>
                     <HeroBtn activeClass="active" to="donuts" spy={true} smooth={true} offset={-120} duration={1000} role="button" tabIndex="0">Shop Now</HeroBtn>
                 </HeroItems>
             </HeroContent>

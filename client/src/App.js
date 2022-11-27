@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import GlobalStyle from "./theme/GlobalStyle";
 import { ThemeProvider } from "styled-components";
@@ -14,7 +14,7 @@ import { addUser } from "./redux/actions/auth-actions";
 import api from "./api/axiosConfig";
 
 const App = ({ cart, calcTotals, addUser }) => {
-  
+  const [animation, setAnimation] = useState("animate");
   const location = useLocation();
 
   useEffect(() => {
@@ -30,6 +30,9 @@ const App = ({ cart, calcTotals, addUser }) => {
   }, [location]);
 
   useEffect(() => {
+    setTimeout(() => {
+      setAnimation("");
+    }, 5000);
     api
       .get("/check")
       .then(({data}) => {
@@ -38,16 +41,14 @@ const App = ({ cart, calcTotals, addUser }) => {
       .catch((err) => console.log(err));
   }, [addUser]);
 
-  useEffect(() => {
-    calcTotals();
-  }, [cart, calcTotals]);
+  useEffect(() => calcTotals(), [cart, calcTotals]);
 
   return (
     <ThemeProvider theme={Theme}>
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<Navigate replace to="/home" />} />
-        <Route path="/home/*" element={<Home />} />
+        <Route path="/home/*" element={<Home animation={animation} />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -70,13 +70,13 @@ export const H1Wrapper = styled.div`
 `;
 
 const h1Animation = keyframes`
-  0% { opacity: 0; transform: translateY(-10vh) skew(2deg); filter: blur(2px); }
-  100% { opacity: 1; transform: translateY(0px) skew(0deg); filter: blur(0px); }
+  from { opacity: 0; transform: translateY(-10vh) skew(2deg); filter: blur(2px); }
+  to { opacity: 1; transform: translateY(0) skew(0deg); filter: blur(0px); }
 `;
 
 const pAnimation = keyframes`
-  0% { opacity: 0; transform: translateX(-20vh) skewX(30deg); }
-  100% { opacity: 1; transform: translateX(0px) skewX(0deg); }
+  from { opacity: 0.5; transform: translateY(-100%) rotateX(270deg); }
+  to { opacity: 1; transform: translateY(0) rotateX(380deg); }
 `;
 
 export const H1Holder = styled.div`
@@ -97,11 +97,11 @@ export const HeroH1 = styled.h1`
   opacity: ${({className}) => className && "0"};
   &.active {
     animation-name: ${h1Animation};
-    animation-duration: 2s;
+    animation-duration: 1s;
     animation-fill-mode: forwards;
     animation-iteration-count: initial;
     animation-delay: 1s;
-    animation-timing-function: ease-out;
+    animation-timing-function: cubic-bezier(0.4, 0.4, 0.8, 1.4);
   }
 `;
 
@@ -109,13 +109,8 @@ export const HeroP = styled.p`
   font-size: clamp(1.5rem, 2.5vw, 3rem);
   margin-bottom: 2rem;
   opacity: ${(props) => props.className && "0"};
-  &.active {
-    animation-name: ${pAnimation};
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: initial;
-    animation-delay: 3s;
-    animation-timing-function: cubic-bezier(0.4, 0.4, 0.8, 1.4);
+  &.animate {
+    animation: ${pAnimation} 1s ease-in 2s forwards;
   }
 `;
 

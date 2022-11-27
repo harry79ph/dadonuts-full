@@ -1,7 +1,7 @@
 
 const initialState = {
     user: "",
-    email: ""
+    id: ""
 }
 
 const authReducer = (state = initialState, action) => {

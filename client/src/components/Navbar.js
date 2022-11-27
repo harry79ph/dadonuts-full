@@ -20,11 +20,11 @@ const Navbar = ({ handleToggle, user, totals }) => {
                 <MenuWrapper isPresent={totals.quantity === 0}>
                     <Link to="/cart" aria-label='your cart' tabIndex="0">
                         <ShoppingCart />
-                    </Link>
-                    <MenuIcon onClick={handleToggle} />
                     <span>
                         <p>{totals.quantity}</p>
                     </span>
+                    </Link>
+                    <MenuIcon onClick={handleToggle} />
                 </MenuWrapper>
             </NavContainer>
         </>
