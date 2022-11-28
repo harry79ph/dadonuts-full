@@ -42,3 +42,10 @@ export const calcTotals = () => {
         type: "CALC_TOTALS"
     }
 }
+
+export const addActive = (title) => {
+    return {
+        type: "ADD_ACTIVE",
+        payload: title
+    }
+}

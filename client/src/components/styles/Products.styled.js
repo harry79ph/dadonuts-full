@@ -18,6 +18,11 @@ const fadeUp = keyframes`
   100% { opacity: 1; transform: translateY(0); }
 `;
 
+const slowFadeUp = keyframes`
+  0% { opacity: 0.2; transform: translateY(0.3rem); }
+  100% { opacity: 1; transform: translateY(0); }
+`;
+
 export const Loader = styled.p`
   padding: 2vw;
   font-size: 1.4rem;
@@ -41,6 +46,12 @@ export const ProductsHeading = styled.h1`
   text-transform: capitalize;
   text-align: center;
   margin: 2rem 0;
+  &.active {
+    animation-name: ${fadeUp};
+    animation-duration: .9s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+  }
 `;
 
 export const SortWrap = styled.div`
@@ -123,8 +134,8 @@ export const ProductImg = styled.img`
   margin: 0 auto;
   opacity: 0;
   &.active {
-    animation-name: ${fadeUp};
-    animation-duration: .7s;
+    animation-name: ${slowFadeUp};
+    animation-duration: .5s;
     animation-fill-mode: forwards;
     animation-timing-function: ease-out;
   }
@@ -138,15 +149,15 @@ export const ProductInfo = styled.div`
   padding: 1rem 0 2rem 0;
   text-align: center;
   &.active > h2{
-    animation-name: ${fadeUp};
-    animation-duration: .7s;
+    animation-name: ${slowFadeUp};
+    animation-duration: .5s;
     animation-delay: .2s;
     animation-fill-mode: forwards;
     animation-timing-function: ease-out;
   }
   &.active > p {
-    animation-name: ${fadeUp};
-    animation-duration: .7s;
+    animation-name: ${slowFadeUp};
+    animation-duration: .5s;
     animation-delay: .4s;
     animation-fill-mode: forwards;
     animation-timing-function: ease-out;

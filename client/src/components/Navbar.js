@@ -1,10 +1,11 @@
 import { NavContainer, NavLink, ItemWrapper, MenuIcon, MenuWrapper, ShoppingCart, AccountWrapper, AccountImg, AccountUser } from './styles/Navbar.styled';
 import logo from '../images/logo.svg';
-import { products } from "../data/itemLists";
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 
-const Navbar = ({ handleToggle, user, totals }) => {
+const Navbar = ({ handleToggle, user, shop: { titles, totals } }) => {
+
+    const products = Object.keys(titles);
 
     return (
         <>
@@ -34,7 +35,7 @@ const Navbar = ({ handleToggle, user, totals }) => {
 const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
-        totals: state.shop.totals
+        shop: state.shop
     };
 };
 

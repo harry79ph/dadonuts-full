@@ -17,8 +17,6 @@ import { MdOutlineDeliveryDining } from 'react-icons/md';
 import { GoPackage } from 'react-icons/go';
 import { GiDoughRoller } from 'react-icons/gi';
 
-export const products = ['donuts', 'desserts', 'cookies'];
-
 const donutList = [
     {
         img: donut1,

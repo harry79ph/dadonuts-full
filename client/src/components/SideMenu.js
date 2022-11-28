@@ -1,5 +1,4 @@
 import { CloseIcon, IconWrapper, SideMenuContainer, SideMenuLink, SidebarMenu, SidebarRoute, SideBtnWrapper, CartContent, CartHeader } from "./styles/SideMenu.styled";
-import { products } from "../data/itemLists";
 import SideMenuItem from "./SideMenuItem";
 import { connect } from "react-redux";
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -9,9 +8,10 @@ import UserRegister from "./UserRegister";
 import UserAccount from "./UserAccount";
 import PrivateRoute from "./PrivateRoute";
 
-const SideMenu = ({ totals, isOpen, handleToggle, cart }) => {
+const SideMenu = ({ totals, isOpen, handleToggle, shop: { cart, titles } }) => {
 
     const navigate = useNavigate();
+    const products = Object.keys(titles);
 
     const handleClick = () => {
         handleToggle();
@@ -56,7 +56,7 @@ const SideMenu = ({ totals, isOpen, handleToggle, cart }) => {
 
 const mapStateToProps = (state) => {
     return {
-        cart: state.shop.cart,
+        shop: state.shop,
         totals: state.shop.totals
     };
 };

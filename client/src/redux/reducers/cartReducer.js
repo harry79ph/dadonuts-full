@@ -2,6 +2,7 @@ import { sections } from "../../data/itemLists";
 
 const initialState = {
     sections,
+    titles: {donuts: false, desserts: false, cookies: false},
     cart: [],
     totals: { quantity: 0, price: "" }
 }
@@ -45,6 +46,11 @@ const cartReducer = (state = initialState, action) => {
                     .reduce((acc, curr) => acc + Number(curr.price) * curr.qty, 0)
                     .toFixed(2)
                 }
+            }
+        case "ADD_ACTIVE":
+            return {
+                ...state,
+                titles: { ...state.titles, [action.payload]: true }
             }
         default:
             return state;

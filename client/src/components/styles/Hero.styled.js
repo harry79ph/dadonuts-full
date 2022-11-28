@@ -76,7 +76,7 @@ const h1Animation = keyframes`
 
 const pAnimation = keyframes`
   from { opacity: 0.5; transform: translateY(-100%) rotateX(270deg); }
-  to { opacity: 1; transform: translateY(0) rotateX(380deg); }
+  to { opacity: 1; transform: translateY(0) rotateX(360deg); }
 `;
 
 export const H1Holder = styled.div`

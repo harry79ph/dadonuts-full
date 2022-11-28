@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { ProductsContainer, ProductSection, ProductWrapper, ProductsHeading, SortWrap, SortButton, SortButtonsWrap } from './styles/Products.styled';
-import { products } from '../data/itemLists';
 import ProductItem from './ProductItem';
 import { connect } from 'react-redux';
-import { sortByName, sortByPrice } from '../redux/actions/cart-actions';
+import { sortByName, sortByPrice, addActive } from '../redux/actions/cart-actions';
+import { InView } from 'react-intersection-observer';
 
-const Products = ({ sections, cart, sortByName, sortByPrice }) => {
+const Products = ({ shop: { sections, titles }, cart, sortByName, sortByPrice, addActive }) => {
 
     const [isList, setIsList] = useState([true, true, true]);
+    const products = Object.keys(titles);
 
     const handleList = (i) => {
         setIsList((prev) => prev.map((bool, idx) => idx === i ? !bool : bool));
@@ -18,7 +19,11 @@ const Products = ({ sections, cart, sortByName, sortByPrice }) => {
             {sections.map((section, i) => {
                 return (
                     <ProductSection id={products[i]} key={"section" + i}>
-                        <ProductsHeading>{products[i]}</ProductsHeading>
+                        <InView onChange={(inView) => {
+                            if (inView && !titles[products[i]]) addActive(products[i])
+                        }}>
+                            <ProductsHeading className={titles[products[i]] ? "active" : ""}>{products[i]}</ProductsHeading>
+                        </InView>
                         <SortWrap>
                             <SortButtonsWrap className="list-btn">
                                 <span>List View:</span>
@@ -46,7 +51,7 @@ const Products = ({ sections, cart, sortByName, sortByPrice }) => {
 
 const mapStateToProps = state => {
     return {
-        sections: state.shop.sections,
+        shop: state.shop,
         cart: state.shop.cart
     }
 }
@@ -54,7 +59,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
     return {
         sortByName: (index) => dispatch(sortByName(index)),
-        sortByPrice: (index) => dispatch(sortByPrice(index))
+        sortByPrice: (index) => dispatch(sortByPrice(index)),
+        addActive: (title) => dispatch(addActive(title)),
     }
 };
 
