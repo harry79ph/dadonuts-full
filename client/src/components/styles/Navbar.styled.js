@@ -34,8 +34,27 @@ export const NavLink = styled(Link)`
   &:hover,
   &.active > p {
     background: -webkit-linear-gradient(#ccc1b8, #fff1a6);
-    background-clip: text;
+    background: linear-gradient(
+      to bottom,
+      hsl(202.97, 92.89%, 55.88%) 0%,
+      hsl(205.15, 78.79%, 64.93%) 10.5%,
+      hsl(204.21, 62.85%, 68.99%) 19.4%,
+      hsl(200.49, 46.05%, 71.5%) 27%,
+      hsl(190.79, 29.19%, 73.17%) 33.5%,
+      hsl(162.3, 19.29%, 75.69%) 39%,
+      hsl(110.55, 18.1%, 78.37%) 44%,
+      hsl(80.88, 27.86%, 77.74%) 48.5%,
+      hsl(68.82, 36.12%, 77.11%) 53%,
+      hsl(62.53, 43.08%, 76.51%) 57.5%,
+      hsl(58.82, 50.42%, 76.17%) 62.3%,
+      hsl(56.6, 59.04%, 76.18%) 67.7%,
+      hsl(55.18, 66.53%, 76.15%) 74%,
+      hsl(54.22, 73.04%, 76.08%) 81.3%,
+      hsl(53.53, 78.72%, 75.99%) 89.9%,
+      hsl(53.01, 83.74%, 75.88%) 100%
+    );
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
