@@ -165,13 +165,13 @@ export const ProductInfo = styled.div`
 `;
 
 export const ProductTitle = styled.h2`
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
   opacity: 0;
 `;
 
 export const ProductPrice = styled.p`
   margin-bottom: 1rem;
-  font-size: 1.4rem;
+  font-size: clamp(1.2rem, 1.8vw, 1.4rem);
   opacity: 0;
 `;
 
