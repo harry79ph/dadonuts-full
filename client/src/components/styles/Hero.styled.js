@@ -1,6 +1,7 @@
 import styled, { keyframes, css } from "styled-components";
 import { Link } from "react-scroll";
-import BgImg from "../../images/doughnut-bg.jpg";
+import BgImg from "../../images/doughnut-bg.png";
+import Blobs from '../../images/blobs.svg'
 
 export const buttonStyle = css`
   border: none;
@@ -16,25 +17,31 @@ export const buttonStyle = css`
 `;
 
 export const HeroContainer = styled.div`
-  background-image: linear-gradient(
-      to right,
-      rgb(250, 0, 170, 0.7),
-      rgb(250, 0, 170, 0)
-    ),
-    url(${BgImg});
-  background-color: ${(props) => props.theme.colors.secondary}; // If the images cannot be loaded, the background color will be used as fallback.
+  position: relative;
+  background-image: url(${Blobs}), url(${BgImg});
   height: 100vh;
   background-position: center;
   background-size: cover;
+  overflow: hidden;
   @media ${({ theme }) => theme.mediaQueries["lg"]} {
     background-position: 86% 50%;
-    background-image: linear-gradient(
-      to right,
-      rgba(255, 68, 185, 0.05),
-      rgba(255, 68, 185, 0.01)
-    ),
-    url(${BgImg});
+    background-color: rgba(255, 68, 185, 0.1);
   }
+`;
+
+export const BlobBG = styled.div`
+  background-image: linear-gradient(
+      to right,
+      rgba(255, 68, 185, 1),
+      rgba(255, 68, 185, 0.3)
+    );
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  //background-color: rgba(255, 68, 185, 0.4);  // If the images cannot be loaded, the background color will be used as fallback.
+  height: 100vh;
+  width: 100vw;
 `;
 
 export const HeroContent = styled.div`
@@ -70,24 +77,13 @@ export const H1Wrapper = styled.div`
 `;
 
 const h1Animation = keyframes`
-  from { opacity: 0; transform: translateY(-10vh) skew(2deg); filter: blur(2px); }
-  to { opacity: 1; transform: translateY(0) skew(0deg); filter: blur(0px); }
+  0% { opacity: 0; transform: translateY(-10vh) skew(2deg); filter: blur(2px); }
+  100% { opacity: 1; transform: translateY(0px) skew(0deg); filter: blur(0px); }
 `;
 
 const pAnimation = keyframes`
-  from { opacity: 0.5; transform: translateY(-100%) rotateX(270deg) rotateY(-1deg) rotateZ(-1deg); }
-  to { opacity: 1; transform: translateY(0) rotateX(360deg) rotateY(0) rotateZ(0); }
-`;
-
-export const H1Holder = styled.div`
-  transform: translateY(0);
-  transition: transform ${(props) => props.speed === "fast" ? ".4s" : "1s"} ease;
-  &.up {
-    transform: translateY(${(props) => props.speed === "slow" ? "0.5rem" : "1.2rem"});
-  }
-  &.down {
-    transform: translateY(${(props) => props.speed === "slow" ? "-0.5rem" : "-1.2rem"});
-  }
+  0% { opacity: 0; transform: translateX(-20vh) skewX(30deg); }
+  100% { opacity: 1; transform: translateX(0px) skewX(0deg); }
 `;
 
 export const HeroH1 = styled.h1`
@@ -95,13 +91,13 @@ export const HeroH1 = styled.h1`
   letter-spacing: 3px;
   text-transform: uppercase;
   opacity: ${({className}) => className && "0"};
-  &.active {
+  &.animate {
     animation-name: ${h1Animation};
-    animation-duration: 1s;
+    animation-duration: 2s;
     animation-fill-mode: forwards;
     animation-iteration-count: initial;
     animation-delay: 1s;
-    animation-timing-function: cubic-bezier(0.4, 0.4, 0.8, 1.4);
+    animation-timing-function: ease-out;
   }
 `;
 
@@ -110,7 +106,12 @@ export const HeroP = styled.p`
   margin-bottom: 2rem;
   opacity: ${(props) => props.className && "0"};
   &.animate {
-    animation: ${pAnimation} 1s ease-in 2s forwards;
+    animation-name: ${pAnimation};
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: initial;
+    animation-delay: 3s;
+    animation-timing-function: cubic-bezier(0.4, 0.4, 0.8, 1.4);
   }
 `;
 

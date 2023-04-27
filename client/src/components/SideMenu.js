@@ -38,10 +38,10 @@ const SideMenu = ({ totals, isOpen, handleToggle, shop: { cart, titles } }) => {
                     <>
                         {cart.map(item => {
                             return (
-                                <SideMenuItem item={item} key={'side' + item.id}/>
+                                <SideMenuItem item={item} key={'side' + item.name}/>
                             );
                         })}
-                        <h3>Total: {totals.price}</h3>
+                        <h3>Total: £{totals.price}</h3>
                     </>
                 ) : (
                     <li style={{ margin: "30px 0" }}>Cart is Empty!</li>

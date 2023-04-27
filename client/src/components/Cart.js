@@ -14,7 +14,7 @@ const Cart = ({ cart, totals }) => {
     } else {
         cartContent = cart.map(item => {
             return (
-                <CartItem key={'cart' + item.id} item={item} />
+                <CartItem key={'cart' + item.name} item={item} />
             );
         });
     }

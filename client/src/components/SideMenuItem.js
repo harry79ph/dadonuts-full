@@ -8,7 +8,7 @@ const SideMenuItem = ({ item, removeFromCart }) => {
         <SideItemWrapper>
             <SideImg src={item.img} alt={item.name} />
             <SideItemContent>
-                <span>{item.price}</span>
+                <span>£{item.price}</span>
                 <span className="times">X</span>
                 <span>{item.qty}</span>
             </SideItemContent>
